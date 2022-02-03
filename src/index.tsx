@@ -1,14 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { FC, useState } from "react";
+import ReactDOM from "react-dom";
+import reportWebVitals from "./reportWebVitals";
+import Splash from "./components/splash/splash";
+import "./index.css";
+import App from "./components/app/app";
+
+const FindifyInterView: FC = () => {
+  const [activeSplash, setSplashStatus] = useState(true);
+  return (
+    <>
+      {activeSplash ? (
+        <Splash
+          closeSplash={() => {
+            setSplashStatus(false);
+          }}
+        />
+      ) : (
+        <App />
+      )}
+    </>
+  );
+};
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <FindifyInterView />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
