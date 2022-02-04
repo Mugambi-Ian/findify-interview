@@ -149,7 +149,7 @@ const NavBar: FC<{
       <ul id="facet-list">
         {facets.map((facet, i) => {
           return (
-            <li id="facet-item">
+            <li id="facet-item" key={i}>
               <header>
                 <h3>{facet.name}</h3>
                 <button

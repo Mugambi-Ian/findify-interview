@@ -24,7 +24,6 @@ const Dashboard: React.FC<{
 
   const [facet_ui, updateFacetUi] = useState<FacetUi[]>(
     props.facets.map((p) => {
-      console.log(p.values);
       const selected =
         p.type === FacetType.Color || p.type === FacetType.Text
           ? p.values.map((x, i) => {

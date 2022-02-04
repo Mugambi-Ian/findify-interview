@@ -17,56 +17,69 @@ const Panel: FC<{
       <div id="bread-crumbs">
         {crumbs.colors.length !== 0 ? (
           <>
-            <ul id="color-crumbs">
+            <>
               {crumbs.colors.map((x, i) => {
                 return (
-                  <li id="crumb-category" key={i}>
-                    <p>{x.facet_name}: </p>
-                    <ul id="crumbs-list">
-                      {x.values.map((c, _i) => {
-                        const { color } = c;
-                        return (
-                          <button
-                            id="crumb-value"
-                            onClick={() =>
-                              setTimeout(() => {
-                                facet_ui[x.facet_index].selected[
-                                  c.index
-                                ].activated = false;
-                                updateFacetUi(facet_ui);
-                              }, 200)
+                  <>
+                    <p id="crumb-category" key={i}>
+                      {x.facet_name}:
+                    </p>
+                    {x.values.map((c, _i) => {
+                      const { color } = c;
+                      return (
+                        <button
+                          key={x.facet_index}
+                          id="crumb-value"
+                          onClick={() =>
+                            setTimeout(() => {
+                              facet_ui[x.facet_index].selected[
+                                c.index
+                              ].activated = false;
+                              updateFacetUi(facet_ui);
+                            }, 200)
+                          }
+                        >
+                          <div
+                            key={_i}
+                            style={
+                              color?.isHex
+                                ? { backgroundColor: color?.code }
+                                : {
+                                    backgroundImage: `url(${color?.code})`,
+                                  }
                             }
-                          >
-                            <div
-                              style={
-                                color?.isHex
-                                  ? { backgroundColor: color?.code }
-                                  : {
-                                      backgroundImage: `url(${color?.code})`,
-                                    }
-                              }
-                            />
-                            <span id="close">✖</span>
-                          </button>
-                        );
-                      })}
-                    </ul>
-                  </li>
+                          />
+                          <span key={c.index} id="close">
+                            ✖
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </>
                 );
               })}
-            </ul>
+            </>
           </>
+        ) : (
+          ""
+        )}
+        {crumbs.colors.length !== 0 &&
+        (crumbs.range.length !== 0 || crumbs.text.length !== 0) ? (
+          <p className="slash">/</p>
         ) : (
           ""
         )}
         {crumbs.range.length !== 0 ? (
           <>
-            <ul id="text-crumbs">
+            <>
               {crumbs.range.map((x, i) => {
                 return (
-                  <li id="crumb-category" key={i}>
-                    <p>{x.facet_name}: </p>
+                  <>
+                    <p id="crumb-category" key={i}>
+                      {x.facet_name}:
+                    </p>
                     <button
+                      key={x.facet_index}
                       id="crumb-value"
                       onClick={() =>
                         setTimeout(() => {
@@ -84,46 +97,54 @@ const Panel: FC<{
                       </p>
                       <span id="close">✖</span>
                     </button>
-                  </li>
+                  </>
                 );
               })}
-            </ul>
+            </>
           </>
+        ) : (
+          ""
+        )}
+        {crumbs.text.length !== 0 && crumbs.range.length ? (
+          <p className="slash">/</p>
         ) : (
           ""
         )}
         {crumbs.text.length !== 0 ? (
           <>
-            <ul id="text-crumbs">
-              {crumbs.text.map((x, i) => {
-                return (
-                  <li id="crumb-category" key={i}>
-                    <p>{x.facet_name}: </p>
-                    <ul id="crumbs-list">
-                      {x.values.map((c, _i) => {
-                        const { value } = c;
-                        return (
-                          <button
-                            id="crumb-value"
-                            onClick={() =>
-                              setTimeout(() => {
-                                facet_ui[x.facet_index].selected[
-                                  c.index
-                                ].activated = false;
-                                updateFacetUi(facet_ui);
-                              }, 200)
-                            }
-                          >
-                            <p id="text">{value.value}</p>
-                            <span>✖</span>
-                          </button>
-                        );
-                      })}
-                    </ul>
-                  </li>
-                );
-              })}
-            </ul>
+            {crumbs.text.map((x, i) => {
+              return (
+                <>
+                  <p id="crumb-category" key={i}>
+                    {x.facet_name}:{" "}
+                  </p>
+                  <>
+                    {x.values.map((c, _i) => {
+                      const { value } = c;
+                      return (
+                        <button
+                          key={x.facet_index}
+                          id="crumb-value"
+                          onClick={() =>
+                            setTimeout(() => {
+                              facet_ui[x.facet_index].selected[
+                                c.index
+                              ].activated = false;
+                              updateFacetUi(facet_ui);
+                            }, 200)
+                          }
+                        >
+                          <p key={_i} id="text">
+                            {value.value}
+                          </p>
+                          <span key={c.index}>✖</span>
+                        </button>
+                      );
+                    })}
+                  </>
+                </>
+              );
+            })}
           </>
         ) : (
           ""
