@@ -1,6 +1,0 @@
-.dashboard {
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-  animation: fade-in 0.5s ease-in;
-}

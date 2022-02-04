@@ -9,7 +9,7 @@ import {
   fetchColorMappingSchema,
   fetchProducts,
 } from "../../assets/utils/sync";
-import "./app.css";
+import "./app.scss";
 
 const App: React.FC = () => {
   const [loading, updateLoadingStatus] = useState<{
