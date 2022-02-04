@@ -10,3 +10,4 @@ export async function fetchColorMappingSchema() {
   );
   return await res.json();
 }
+

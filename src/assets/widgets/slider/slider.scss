@@ -1,0 +1,100 @@
+$shade_1:#121212;
+$shade_2:#939393;
+$shade_3:#CCCCCC;
+$shade_4:#EFEFEF;
+
+.slider {
+    position: relative;
+    display: flex;
+
+    div {
+        display: flex;
+        flex-direction: column;
+        display: flex;
+        flex: 1;
+
+        input[type=range] {
+            height: 2.2em;
+            -webkit-appearance: none;
+            background-color: #efefef00;
+        }
+
+        /*progress support*/
+        input[type=range] {
+            --range: calc(var(--max) - var(--min));
+            --ratio: calc((var(--value) - var(--min)) / var(--range));
+            --sx: calc(0.5 * 2em + var(--ratio) * (100% - 2em));
+        }
+
+        input[type=range]:focus {
+            outline: none;
+        }
+
+        /*webkit*/
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 1.5em;
+            height: 1.5em;
+            border-radius: 1em;
+            background: $shade_1;
+            border: none;
+            box-shadow: 0 0 2px black;
+            margin-top: calc(max((.5em - 1px - 1px) * 0.5, 0px) - 1.5em * 0.5);
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            height: 0.5em;
+            background: #efefef;
+            box-shadow: none;
+        }
+
+        #slider-left {
+            align-self: flex-end;
+        }
+
+        #slider-right {
+            align-self: flex-start;
+        }
+
+        div.value {
+            display: flex;
+            flex-direction: row;
+            margin-top: 10px;
+
+            span {
+                width: 10px;
+                height: 2px;
+                border-radius: 5px;
+                align-self: center;
+                background-color: $shade_3;
+            }
+
+            h6 {
+                margin-left: 10px;
+                margin-right: 10px;
+                padding: 10px;
+                border-radius: 5px;
+                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            }
+        }
+    }
+
+    div#left {
+        margin-right: -2px;
+
+        input[type=range]::-webkit-slider-runnable-track {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+    }
+
+    div#right {
+        margin-left: -2px;
+
+        input[type=range]::-webkit-slider-runnable-track {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+    }
+
+}

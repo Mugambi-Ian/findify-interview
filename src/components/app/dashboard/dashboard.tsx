@@ -1,12 +1,17 @@
-import React, { useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import Facet, { FacetType, FacetValue } from "../../../assets/models/facet";
 import Dictionary from "../../../assets/utils/dictionary";
-import rightSvg from "../../../assets/img/right-top.svg";
-import leftSvg from "../../../assets/img/left-top.svg";
 import { Color } from "../../../assets/models/colors";
 import Product from "../../../assets/models/product";
-import checkSvg from "../../../assets/img/check.svg";
-import boxSvg from "../../../assets/img/box.svg";
+import {
+  BreadCrumb,
+  BreadCrumbColor,
+  BreadCrumbRange,
+  BreadCrumbText,
+  FacetUi,
+} from "../../../assets/widgets/types/types";
+import NavBar from "./nav-bar/nav-bar";
+import Panel from "./panel/panel";
 import "./dashboard.scss";
 
 const Dashboard: React.FC<{
@@ -16,225 +21,130 @@ const Dashboard: React.FC<{
   loaded: boolean;
 }> = (props) => {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
-  const [activeFacets, switchFacetState] = useState<
-    {
-      facet: boolean;
-      more: boolean;
-      selected: { value: FacetValue; active: boolean }[];
-    }[]
-  >(
+
+  const [facet_ui, updateFacetUi] = useState<FacetUi[]>(
     props.facets.map((p) => {
+      console.log(p.values);
       const selected =
         p.type === FacetType.Color || p.type === FacetType.Text
-          ? p.values.map((x) => {
-              return { value: x, active: false };
+          ? p.values.map((x, i) => {
+              return {
+                value: x,
+                activated: false,
+                min_range: -1,
+                max_range: -1,
+                index: i,
+              };
             })
-          : [];
+          : [
+              {
+                value: p.values[0],
+                activated: false,
+                min_range: -1,
+                max_range: -1,
+                index: 0,
+              },
+            ];
       return {
-        facet: false,
-        more: false,
+        activated: false,
+        display_more: false,
         selected,
+        value: p,
       };
     })
   );
 
-  const facetValues = (
-    values: { value: string; count: number }[],
-    type: FacetType,
-    facetIndex: number
-  ): JSX.Element[] => {
-    return values.map((v, i) => {
-      return (
-        <li key={i} id="value-item">
-          {facetTypeWidget(v, type, i, facetIndex)}
-          <h6>{v.value}</h6>
-          <p>({v.count})</p>
-        </li>
-      );
+  const [crumbs, updateCrumbs] = useState<BreadCrumb>({
+    range: [],
+    colors: [],
+    text: [],
+  });
+
+  const resetCrumbs = (facet_ui: FacetUi[]) => {
+    const range: BreadCrumbRange[] = [];
+    const colors: BreadCrumbColor[] = [];
+    const text: BreadCrumbText[] = [];
+
+    facet_ui.forEach((f, i) => {
+      switch (f.value.type) {
+        case FacetType.Range:
+          if (f.selected[0].activated) {
+            const { min_range, max_range } = f.selected[0];
+            range.push({
+              min_range,
+              max_range,
+              facet_name: f.value.name,
+              facet_index: i,
+              default_range: f.selected[0].value.value,
+            });
+          }
+          break;
+        case FacetType.Color:
+          let r = f.selected.filter((x, i) => {
+            return x.activated;
+          });
+          const values = r.map((x) => {
+            return {
+              color: props.colorSchema.get(x.value.value),
+              index: x.index,
+            };
+          });
+          if (values.length !== 0)
+            colors.push({
+              facet_name: f.value.name,
+              values,
+              facet_index: i,
+            });
+          break;
+        case FacetType.Text:
+          let t = f.selected.filter((x) => {
+            return x.activated;
+          });
+          const _t = t.map((x) => {
+            const { value, index } = x;
+            return { value, index };
+          });
+          if (_t.length !== 0)
+            text.push({
+              facet_name: f.value.name,
+              values: _t,
+              facet_index: i,
+            });
+          break;
+        default:
+          break;
+      }
+    });
+    updateCrumbs({
+      colors,
+      range,
+      text,
     });
   };
 
-  const facetTypeWidget = (
-    value: { value: string; count: number },
-    type: FacetType,
-    valueIndex: number,
-    facetIndex: number
-  ): JSX.Element => {
-    switch (type) {
-      case FacetType.Text:
-        return (
-          <button
-            id="select"
-            onClick={() =>
-              setTimeout(() => {
-                activeFacets[facetIndex].selected[valueIndex].active =
-                  !activeFacets[facetIndex].selected[valueIndex].active;
-                switchFacetState(activeFacets);
-                forceUpdate();
-              }, 200)
-            }
-          >
-            <img src={boxSvg} alt="icon" id="box" />
-            {activeFacets[facetIndex].selected[valueIndex].active ? (
-              <img src={checkSvg} alt="check-mark" id="check" />
-            ) : (
-              ""
-            )}
-          </button>
-        );
-      case FacetType.Color:
-        const color = props.colorSchema.get(value.value);
-        return (
-          <button
-            className="color"
-            id="select"
-            style={
-              color?.isHex
-                ? { backgroundColor: color.code }
-                : {
-                    backgroundImage: `url(${color?.code})`,
-                  }
-            }
-          >
-            {activeFacets[facetIndex].selected[valueIndex].active ? (
-              <img src={checkSvg} alt="check-mark" id="check" />
-            ) : (
-              ""
-            )}
-          </button>
-        );
-      default:
-        return <div />;
-    }
-  };
-
   return (
-    <section id="dashboard">
-      <header id="title">
-        <div>
-          <img src={"/favicon.ico"} alt="findify" />
-          <h1>Search Results</h1>
-        </div>
-        <span />
-      </header>
-      <main>
-        <nav>
-          <header id="filter-title">
-            <h2>Filters</h2>
-          </header>
-          <ul id="facet-list">
-            {props.facets.map((facet, i) => {
-              return (
-                <li id="facet-item">
-                  <header>
-                    <h3>{facet.name}</h3>
-                    <button
-                      onClick={() =>
-                        setTimeout(() => {
-                          activeFacets[i].more = activeFacets[i].facet
-                            ? false
-                            : activeFacets[i].more;
-                          activeFacets[i].facet = !activeFacets[i].facet;
-                          switchFacetState(activeFacets);
-                          forceUpdate();
-                        }, 200)
-                      }
-                    >
-                      <span>{activeFacets[i].facet ? "➖" : "➕"}</span>
-                    </button>
-                  </header>
-                  <div
-                    id={activeFacets[i].facet ? "on" : ""}
-                    className="facet-content"
-                  >
-                    <ul
-                      id="values-list"
-                      style={!activeFacets[i].facet ? { display: "none" } : {}}
-                    >
-                      {facetValues(
-                        !activeFacets[i].more
-                          ? facet.values.slice(0, 6)
-                          : facet.values,
-                        facet.type,
-                        i
-                      )}
-                    </ul>
-                    {facet.values.length > 6 && activeFacets[i].facet ? (
-                      <button
-                        id="more-values"
-                        onClick={() =>
-                          setTimeout(() => {
-                            activeFacets[i].more = !activeFacets[i].more;
-                            switchFacetState(activeFacets);
-                            forceUpdate();
-                          }, 200)
-                        }
-                      >
-                        <span>
-                          {activeFacets[i].more ? "Less ➖" : "More ➕"}
-                        </span>
-                      </button>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-        <section id="main">
-          <header id="filter-title"></header>
-          <ul id="product-list">
-            {props.products.map((product, i) => {
-              return (
-                <li
-                  id="product-item"
-                  key={i}
-                  onClick={() =>
-                    setTimeout(() => {
-                      window.open(product.product_url, "_blank");
-                    }, 200)
-                  }
-                >
-                  <div id="image">
-                    <img alt="logo" src={product.image_url} />
-                    {product.compare_at ? (
-                      <>
-                        <img alt="logo" src={leftSvg} className="left" />
-                        <h5 className="left">
-                          {(
-                            ((product.compare_at - product.price) /
-                              product.compare_at) *
-                            100
-                          ).toFixed(0)}
-                          % Off
-                        </h5>
-                        <img alt="logo" src={rightSvg} className="right" />
-                        <h5 className="right">Sale</h5>
-                      </>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                  <div style={{ flex: 1 }} />
-                  <h1>{product.title}</h1>
-                  {product.compare_at ? (
-                    <div id="compare">
-                      <h4>${product.compare_at}</h4>
-                      <h4>${product.price}</h4>
-                    </div>
-                  ) : (
-                    <h4>${product.price}</h4>
-                  )}
-                </li>
-              );
-            })}
-            <div style={{ minWidth: "100%", minHeight: "50px" }} />
-          </ul>
-        </section>
-      </main>
-    </section>
+    <main id="dashboard">
+      <NavBar
+        facet_ui={facet_ui}
+        colorSchema={props.colorSchema}
+        facets={props.facets}
+        updateFacetUi={(x) => {
+          updateFacetUi(x);
+          resetCrumbs(x);
+          forceUpdate();
+        }}
+      />
+      <Panel
+        crumbs={crumbs}
+        products={props.products}
+        facet_ui={facet_ui}
+        updateFacetUi={(x) => {
+          updateFacetUi(x);
+          resetCrumbs(x);
+          forceUpdate();
+        }}
+      />
+    </main>
   );
 };
 

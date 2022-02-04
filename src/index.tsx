@@ -2,8 +2,8 @@ import React, { FC, useState } from "react";
 import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import Splash from "./components/splash/splash";
-import "./index.css";
 import App from "./components/app/app";
+import "./_index.scss";
 
 const FindifyInterView: FC = () => {
   const [activeSplash, setSplashStatus] = useState(true);
