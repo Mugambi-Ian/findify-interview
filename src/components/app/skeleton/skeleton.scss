@@ -1,0 +1,45 @@
+$shade_3:#CCCCCC;
+$shade_4:#EFEFEF;
+
+#dashboard.skeleton {
+    animation: fade-in 0.3s forwards;
+    opacity: 0;
+    nav ul#facet-list li#facet-item header h3 {
+        animation: shine 1s linear infinite alternate;
+        border-radius: 5px;
+        height: 30px;
+    }
+
+    section#panel ul#product-list li#product-item {
+
+        div#skeleton,
+        h4,
+        h1 {
+            animation: shine 1s linear infinite alternate;
+            border-radius: 5px;
+        }
+
+        h4,
+        h1 {
+            height: 30px;
+            width: 80%;
+        }
+
+        h4 {
+            width: 40%;
+        }
+
+    }
+
+}
+
+@keyframes shine {
+    0% {
+        background-color: $shade_3;
+    }
+
+    100% {
+        background-color: $shade_4;
+    }
+
+}

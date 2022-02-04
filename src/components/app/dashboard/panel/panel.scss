@@ -126,7 +126,6 @@ $shade_4:#EFEFEF;
         justify-content: space-between;
 
 
-
         li#product-item {
             transition: all 0.3s;
             width: 100%;
@@ -139,6 +138,8 @@ $shade_4:#EFEFEF;
             box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
             min-height: 450px;
             border-radius: 10px;
+            opacity: 0;
+            animation: fade-in 0.3s forwards;
 
             div#image {
                 position: relative;
@@ -218,6 +219,11 @@ $shade_4:#EFEFEF;
 
         li#product-item:active {
             transform: scale(0.9);
+        }
+        @for $i from 1 through 30 {
+            li#product-item:nth-child(#{$i}n) {
+                animation-delay: #{($i * 30) + 100}ms;
+            }
         }
     }
 
