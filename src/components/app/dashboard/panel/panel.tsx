@@ -226,7 +226,14 @@ const Panel: FC<{
                                 }
                               >
                                 <p id="text">
-                                  ${facet.min_range} - ${facet.max_range}
+                                  $
+                                  {facet.min_range !== -1
+                                    ? facet.max_range
+                                    : facet.default_range.split("0")[0]}
+                                  - $
+                                  {facet.max_range !== -1
+                                    ? facet.max_range
+                                    : facet.default_range.split("_")[1]}
                                 </p>
                                 <span id="close">✖</span>
                               </button>
