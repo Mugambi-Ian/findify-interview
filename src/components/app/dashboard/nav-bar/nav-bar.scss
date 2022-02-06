@@ -101,6 +101,12 @@ $shade_4:#EFEFEF;
                     align-self: center;
                 }
 
+                h3.skeleton{
+                    animation: shine 1s linear infinite alternate;
+                    border-radius: 5px;
+                    height: 30px;
+                }
+
                 button {
                     display: flex;
                     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -246,6 +252,8 @@ $shade_4:#EFEFEF;
                 }
             }
         }
+
+        
     }
 
     @media (max-width:767px) {

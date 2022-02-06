@@ -37,3 +37,14 @@ $shade_4:#EFEFEF;
     overflow-x: hidden;
   }
 }
+
+@keyframes shine {
+    0% {
+        background-color: $shade_3;
+    }
+
+    100% {
+        background-color: $shade_4;
+    }
+
+}

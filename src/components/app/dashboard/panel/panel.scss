@@ -215,16 +215,39 @@ $shade_4:#EFEFEF;
                 height: max-content;
                 align-self: center;
             }
+
+            div.skeleton,
+            h1.skeleton,
+            h4.skeleton {
+                animation: shine 1s linear infinite alternate;
+                border-radius: 5px;
+            }
+
+            h1.skeleton,
+            h4.skeleton {
+                margin-top: 20px;
+                height: 30px;
+                width: 80%;
+            }
+
+            h4.skeleton {
+                margin-top: -5px;
+                height: 20px;
+                width: 50%;
+            }
         }
 
         li#product-item:active {
             transform: scale(0.9);
         }
+
         @for $i from 1 through 30 {
             li#product-item:nth-child(#{$i}n) {
-                animation-delay: #{($i * 30) + 100}ms;
+                animation-delay: #{($i * 30) + 200}ms;
             }
         }
+
+     
     }
 
     @media (min-width:1280px) {

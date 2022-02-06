@@ -1,5 +1,5 @@
-import React, { useEffect, useReducer, useState } from "react";
-import Facet, { FacetType, FacetValue } from "../../../assets/models/facet";
+import React, { useEffect, useState } from "react";
+import Facet, { FacetType } from "../../../assets/models/facet";
 import Dictionary from "../../../assets/utils/dictionary";
 import { Color } from "../../../assets/models/colors";
 import Product from "../../../assets/models/product";
@@ -14,44 +14,48 @@ import NavBar from "./nav-bar/nav-bar";
 import Panel from "./panel/panel";
 import "./dashboard.scss";
 
+function loadFacetUI(facets: Facet[]) {
+  const facet_ui = facets.map((p) => {
+    const selected =
+      p.type === FacetType.Color || p.type === FacetType.Text
+        ? p.values.map((x, i) => {
+            return {
+              value: x,
+              activated: false,
+              min_range: -1,
+              max_range: -1,
+              index: i,
+            };
+          })
+        : [
+            {
+              value: p.values[0],
+              activated: false,
+              min_range: -1,
+              max_range: -1,
+              index: 0,
+            },
+          ];
+    return {
+      activated: false,
+      display_more: false,
+      selected,
+      value: p,
+    };
+  });
+  return facet_ui;
+}
+
 const Dashboard: React.FC<{
   products: Product[];
   facets: Facet[];
   colorSchema: Dictionary<Color>;
-  loaded: boolean;
 }> = (props) => {
-  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [facet_ui, updateFacetUi] = useState<FacetUi[]>([]);
 
-  const [facet_ui, updateFacetUi] = useState<FacetUi[]>(
-    props.facets.map((p) => {
-      const selected =
-        p.type === FacetType.Color || p.type === FacetType.Text
-          ? p.values.map((x, i) => {
-              return {
-                value: x,
-                activated: false,
-                min_range: -1,
-                max_range: -1,
-                index: i,
-              };
-            })
-          : [
-              {
-                value: p.values[0],
-                activated: false,
-                min_range: -1,
-                max_range: -1,
-                index: 0,
-              },
-            ];
-      return {
-        activated: false,
-        display_more: false,
-        selected,
-        value: p,
-      };
-    })
-  );
+  useEffect(() => {
+    updateFacetUi(loadFacetUI(props.facets));
+  }, [props.facets]);
 
   const [crumbs, updateCrumbs] = useState<BreadCrumb>({
     range: [],
@@ -130,7 +134,6 @@ const Dashboard: React.FC<{
         updateFacetUi={(x) => {
           updateFacetUi(x);
           resetCrumbs(x);
-          forceUpdate();
         }}
       />
       <Panel
@@ -140,7 +143,6 @@ const Dashboard: React.FC<{
         updateFacetUi={(x) => {
           updateFacetUi(x);
           resetCrumbs(x);
-          forceUpdate();
         }}
       />
     </main>

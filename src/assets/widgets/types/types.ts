@@ -1,3 +1,4 @@
+import { createContext } from "react";
 import { Color } from "../../models/colors";
 import Facet, { FacetValue } from "../../models/facet";
 
@@ -41,3 +42,11 @@ export interface BreadCrumb {
   text: BreadCrumbText[];
   colors: BreadCrumbColor[];
 }
+
+export interface ApplicationContext {
+  loaded: boolean;
+}
+
+export const Context = createContext<ApplicationContext>({
+  loaded: false,
+});

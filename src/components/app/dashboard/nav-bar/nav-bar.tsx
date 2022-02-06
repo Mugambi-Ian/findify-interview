@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Facet, { FacetType, FacetValue } from "../../../../assets/models/facet";
-import { FacetUi } from "../../../../assets/widgets/types/types";
+import { Context, FacetUi } from "../../../../assets/widgets/types/types";
 import Slider from "../../../../assets/widgets/slider/slider";
 import { Color } from "../../../../assets/models/colors";
 import Dictionary from "../../../../assets/utils/dictionary";
@@ -14,6 +14,70 @@ const NavBar: FC<{
   updateFacetUi: (facet_ui: FacetUi[]) => void;
   colorSchema: Dictionary<Color>;
 }> = (props) => {
+  const { facet_ui, updateFacetUi, facets } = props;
+  
+  const facetSkeleton = (key: number): JSX.Element => {
+    return (
+      <li id="facet-item" key={key}>
+        <header>
+          <h3 className="skeleton"> </h3>
+        </header>
+      </li>
+    );
+  };
+
+  const facetCard = (facet: Facet, key: number): JSX.Element => {
+    return (
+      <li id="facet-item" key={key}>
+        <header>
+          <h3>{facet.name}</h3>
+          <button
+            onClick={() =>
+              setTimeout(() => {
+                facet_ui[key].display_more = facet_ui[key].activated
+                  ? false
+                  : facet_ui[key].display_more;
+                facet_ui[key].activated = !facet_ui[key].activated;
+                updateFacetUi(facet_ui);
+              }, 200)
+            }
+          >
+            <span>{facet_ui[key].activated ? "➖" : "➕"}</span>
+          </button>
+        </header>
+        <div id={facet_ui[key].activated ? "on" : ""} className="facet-content">
+          <ul
+            id="values-list"
+            style={!facet_ui[key].activated ? { display: "none" } : {}}
+          >
+            {facetValues(
+              !facet_ui[key].display_more
+                ? facet.values.slice(0, 6)
+                : facet.values,
+              facet.type,
+              key
+            )}
+          </ul>
+          {facet.values.length > 6 && facet_ui[key].activated ? (
+            <button
+              id="more-values"
+              onClick={() =>
+                setTimeout(() => {
+                  facet_ui[key].display_more = !facet_ui[key].display_more;
+                  updateFacetUi(facet_ui);
+                }, 200)
+              }
+            >
+              <span>{facet_ui[key].display_more ? "Less ➖" : "More ➕"}</span>
+            </button>
+          ) : (
+            ""
+          )}
+        </div>
+      </li>
+    );
+  };
+
   const facetValues = (
     values: { value: string; count: number }[],
     type: FacetType,
@@ -126,85 +190,42 @@ const NavBar: FC<{
     }
   };
 
-  const { facet_ui, updateFacetUi, facets } = props;
   return (
-    <nav>
-      <header id="title">
-        <h1>Search Results</h1>
-        <img
-          onClick={() =>
-            window.open("https://github.com/Mugambi-Ian", "_blank")
-          }
-          src={require("../.../../../../../assets/img/ic-github.png")}
-          alt="findify"
-        />
-      </header>
-      <header id="filter-title">
-        <h2>Filters</h2>
-        <img
-          src={require("../../../../assets/img/ic-filter.png")}
-          alt="filter"
-        />
-      </header>
-      <ul id="facet-list">
-        {facets.map((facet, i) => {
-          return (
-            <li id="facet-item" key={i}>
-              <header>
-                <h3>{facet.name}</h3>
-                <button
-                  onClick={() =>
-                    setTimeout(() => {
-                      facet_ui[i].display_more = facet_ui[i].activated
-                        ? false
-                        : facet_ui[i].display_more;
-                      facet_ui[i].activated = !facet_ui[i].activated;
-                      updateFacetUi(facet_ui);
-                    }, 200)
-                  }
-                >
-                  <span>{facet_ui[i].activated ? "➖" : "➕"}</span>
-                </button>
-              </header>
-              <div
-                id={facet_ui[i].activated ? "on" : ""}
-                className="facet-content"
-              >
-                <ul
-                  id="values-list"
-                  style={!facet_ui[i].activated ? { display: "none" } : {}}
-                >
-                  {facetValues(
-                    !facet_ui[i].display_more
-                      ? facet.values.slice(0, 6)
-                      : facet.values,
-                    facet.type,
-                    i
-                  )}
-                </ul>
-                {facet.values.length > 6 && facet_ui[i].activated ? (
-                  <button
-                    id="more-values"
-                    onClick={() =>
-                      setTimeout(() => {
-                        facet_ui[i].display_more = !facet_ui[i].display_more;
-                        updateFacetUi(facet_ui);
-                      }, 200)
-                    }
-                  >
-                    <span>
-                      {facet_ui[i].display_more ? "Less ➖" : "More ➕"}
-                    </span>
-                  </button>
-                ) : (
-                  ""
-                )}
-              </div>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
+    <Context.Consumer>
+      {({ loaded }) => {
+        console.log(loaded);
+        return (
+          <nav>
+            <header id="title">
+              <h1>Search Results</h1>
+              <img
+                onClick={() =>
+                  window.open("https://github.com/Mugambi-Ian", "_blank")
+                }
+                src={require("../.../../../../../assets/img/ic-github.png")}
+                alt="me"
+              />
+            </header>
+            <header id="filter-title">
+              <h2>Filters</h2>
+              <img
+                src={require("../../../../assets/img/ic-filter.png")}
+                alt="filter"
+              />
+            </header>
+            <ul id="facet-list">
+              {loaded
+                ? facets.map((facet, i) => {
+                    return facetCard(facet, i);
+                  })
+                : [1, 2, 3].map((v) => {
+                    return facetSkeleton(v);
+                  })}
+            </ul>
+          </nav>
+        );
+      }}
+    </Context.Consumer>
   );
 };
 
