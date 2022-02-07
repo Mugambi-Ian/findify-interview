@@ -193,7 +193,6 @@ const NavBar: FC<{
   return (
     <Context.Consumer>
       {({ loaded }) => {
-        console.log(loaded);
         return (
           <nav>
             <header id="title">
