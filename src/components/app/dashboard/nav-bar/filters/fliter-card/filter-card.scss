@@ -1,0 +1,40 @@
+li#filter-item {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    padding: 5px;
+    padding-bottom: 10px;
+    border-bottom: $shade_4 1px solid;
+    transition: all 0.3s;
+    animation: fade-in 0.5s forwards;
+    opacity: 0;
+
+    header {
+        display: flex;
+
+        h3 {
+            flex: 1;
+            font-weight: 400;
+            font-size: 14px;
+            align-self: center;
+        }
+
+        button {
+            display: flex;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            border-radius: 2rem;
+
+            span {
+                padding: .75rem;
+                font-size: .7rem;
+            }
+
+        }
+    }
+
+    @for $i from 1 through 30 {
+        li#filter-item:nth-child(#{$i}n) {
+            animation-delay: #{($i * 30) +200}ms;
+        }
+    }
+}

@@ -72,6 +72,7 @@ const App: React.FC = () => {
     <Context.Provider
       value={{
         loaded: !(loading.color || loading.products),
+        colorSchema,
       }}
     >
       <Dashboard

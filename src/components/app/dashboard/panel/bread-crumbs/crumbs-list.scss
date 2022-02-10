@@ -1,0 +1,95 @@
+#dashboard section#panel div#bread-crumbs {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  transition: all 0.3s;
+  animation: fade-in 0.3s;
+  width: 100%;
+
+  p#crumb-category {
+    align-self: center;
+    font-weight: 300;
+    color: $shade_2;
+    transition: all 0.3s;
+    animation: fade-in 0.3s;
+    margin-bottom: 10px;
+
+  }
+
+  p#crumb-category:first-of-type {
+    margin-left: 0;
+  }
+
+  button#crumb-value {
+    transition: all 0.3s;
+    animation: fade-in 0.3s;
+    display: flex;
+    align-self: center;
+    animation: fade-in 0.3s;
+    transform: all 0.3s;
+    margin-bottom: 10px;
+
+    div {
+      align-self: center;
+      width: 15px;
+      height: 15px;
+      margin-left: 5px;
+      margin-right: 5px;
+      border-radius: 50px;
+      box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+      transform: all 0.3s;
+    }
+
+    p#text {
+      font-weight: 500;
+      margin: 0;
+      padding-left: 5px;
+      padding-right: 5px;
+      color: $shade_1;
+      align-self: center;
+      font-size: .9rem;
+    }
+
+    span {
+      border-radius: 50px;
+      margin-left: 5px;
+      margin-right: 5px;
+      padding: 4px;
+      padding-left: 8px;
+      padding-right: 8px;
+      font-size: .75rem;
+      align-self: center;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px;
+    }
+
+  }
+
+  button#crumb-value:hover {
+    transform: scale(0.8);
+
+    p#text {
+      text-decoration: line-through;
+    }
+
+  }
+
+  button#crumb-value:active {
+    transform: scale(0.95);
+  }
+
+  p.slash {
+    align-self: center;
+    font-weight: 300;
+    font-size: 1.5rem;
+    margin: 0;
+    margin-top: -8px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: $shade_2;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}

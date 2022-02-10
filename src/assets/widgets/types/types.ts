@@ -1,6 +1,7 @@
 import { createContext } from "react";
 import { Color } from "../../models/colors";
 import Facet, { FacetValue } from "../../models/facet";
+import Dictionary from "../../utils/dictionary";
 
 export interface FacetUiItem {
   value: FacetValue;
@@ -40,13 +41,27 @@ export interface BreadCrumbColor {
 export interface BreadCrumb {
   range: BreadCrumbRange[];
   text: BreadCrumbText[];
-  colors: BreadCrumbColor[];
+  color: BreadCrumbColor[];
 }
 
-export interface ApplicationContext {
+export interface ApplicationContextInterface {
   loaded: boolean;
+  colorSchema: Dictionary<Color>;
 }
 
-export const Context = createContext<ApplicationContext>({
+export interface FilterContextInterface {
+  facet_ui: FacetUi[];
+  updateFacetUi: (facet_ui: FacetUi[]) => void;
+  crumbs: BreadCrumb;
+}
+
+export const ApplicationContext = createContext<ApplicationContextInterface>({
   loaded: false,
+  colorSchema: new Dictionary(),
+});
+
+export const FilterContext = createContext<FilterContextInterface>({
+  facet_ui: [],
+  updateFacetUi: ([]) => {},
+  crumbs: { color: [], range: [], text: [] },
 });

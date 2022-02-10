@@ -9,6 +9,7 @@ const Slider: React.FC<{
   onChange: (min?: number, max?: number) => void;
   currency?: boolean;
 }> = (props) => {
+  
   useEffect(() => {
     const leftSlider = document.getElementById("slider-left");
     if (leftSlider) {
@@ -18,7 +19,6 @@ const Slider: React.FC<{
     if (rightSlider) {
       rightSlider.style.right = `${Number(props.value.max / 4)}px`;
     }
-    updateSlider();
   });
 
   return (
