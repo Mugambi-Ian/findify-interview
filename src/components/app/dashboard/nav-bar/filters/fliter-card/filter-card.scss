@@ -1,3 +1,8 @@
+$shade_1:#121212;
+$shade_2:#939393;
+$shade_3:#CCCCCC;
+$shade_4:#EFEFEF;
+
 li#filter-item {
     display: flex;
     flex-direction: column;
@@ -14,14 +19,14 @@ li#filter-item {
 
         h3 {
             flex: 1;
-            font-weight: 400;
-            font-size: 14px;
             align-self: center;
+            font-weight: 500;
+            font-size: 14px;
+            color: $shade_1;
         }
 
         button {
             display: flex;
-            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
             border-radius: 2rem;
 
             span {

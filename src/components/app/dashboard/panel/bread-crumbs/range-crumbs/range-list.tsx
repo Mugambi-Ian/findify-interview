@@ -12,9 +12,9 @@ const RangeCrumbsList: FC = () => {
               {crumbs.range.map((facet, fc_index) => {
                 return (
                   <>
-                    <p id="crumb-category" key={"range:" + fc_index}>
+                    {/*  <p id="crumb-category" key={"range:" + fc_index}>
                       {facet.facet_name}:
-                    </p>
+                    </p> */}
                     <RangeCrumb crumb={facet} />
                   </>
                 );

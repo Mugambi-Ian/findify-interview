@@ -1,8 +1,9 @@
 import { FC } from "react";
+import "./filter-skeleton.scss"
 
 const FilterSkeleton: FC<{ key: number }> = (p) => {
   return (
-    <li id="facet-item" key={p.key}>
+    <li id="filter-item" key={p.key}>
       <header>
         <h3 className="skeleton"> </h3>
       </header>

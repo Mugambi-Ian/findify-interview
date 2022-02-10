@@ -1,20 +1,18 @@
 import { FC } from "react";
 import { ApplicationContext } from "../../../../../assets/widgets/types/types";
-import Product from "../../../../../assets/models/product";
-import "./panel.scss";
 import ProductSkeleton from "./product-skeleton/product-skeleton";
 import ProductCard from "./product-card/product-card";
+import "./product-list.scss";
 
-const Panel: FC<{
-    products: Product[];
+const ProductList: FC<{
 }> = (props) => {
     return (
         <ApplicationContext.Consumer>
-            {({ loaded }) => {
+            {({ loaded, products }) => {
                 return (
                     <ul id="product-list">
                         {loaded
-                            ? props.products.map((product, i) => {
+                            ? products.map((product, i) => {
                                 return <ProductCard key={i} product={product} />;
                             })
                             : [1, 2, 3, 4, 5, 6].map((v) => {
@@ -28,4 +26,4 @@ const Panel: FC<{
     );
 };
 
-export default Panel;
+export default ProductList;

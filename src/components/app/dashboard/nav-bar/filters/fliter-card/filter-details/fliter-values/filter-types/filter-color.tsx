@@ -4,7 +4,7 @@ import {
   ApplicationContext,
   FilterContext,
 } from "../../../../../../../../../assets/widgets/types/types";
-import checkSvg from "../../../../assets/img/bg-check.svg";
+import checkSvg from "../../../../../../../../../assets/img/bg-check.svg";
 
 const ColorFilter: FC<{
   facetValue: FacetValue;
@@ -32,7 +32,12 @@ const ColorFilter: FC<{
                   id="select"
                   style={
                     color?.isHex
-                      ? { backgroundColor: color?.code }
+                      ? {
+                        backgroundColor: color?.code, border:
+                          color?.isWhite()
+                            ? "1px solid #939393"
+                            : "unset",
+                      }
                       : {
                         backgroundImage: `url(${color?.code})`,
                       }
@@ -45,7 +50,7 @@ const ColorFilter: FC<{
                   )}
                 </button>
                 <h6>{p.facetValue.value}</h6>
-                <p>{p.facetValue.count}</p>
+                <p>({p.facetValue.count})</p>
               </li>
             )}
           </FilterContext.Consumer>

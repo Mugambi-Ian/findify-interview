@@ -16,7 +16,6 @@ import { loadFacetUI } from "../../../assets/utils/load-filters";
 
 
 const Dashboard: FC<{
-  products: Product[];
   facets: Facet[];
   colorSchema: Dictionary<Color>;
 }> = (props) => {
@@ -44,9 +43,12 @@ const Dashboard: FC<{
         },
       }}
     >
+      <header id="title">
+        <h1>Search Results</h1>
+      </header>
       <main id="dashboard">
-        <NavBar facets={props.facets} />
-        <Panel products={props.products} />
+        <NavBar />
+        <Panel />
       </main>
     </FilterContext.Provider>
   );

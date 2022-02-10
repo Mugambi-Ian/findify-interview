@@ -1,3 +1,8 @@
+$shade_1:#121212;
+$shade_2:#939393;
+$shade_3:#CCCCCC;
+$shade_4:#EFEFEF;
+
 ul#values-list {
     display: flex;
     flex-direction: column;
@@ -22,6 +27,7 @@ ul#values-list {
             align-self: center;
             justify-content: center;
             display: flex;
+            border: 1px solid #fff;
 
             img#box {
                 width: 25px;
@@ -32,7 +38,7 @@ ul#values-list {
             }
 
             img#check {
-                margin: 10px;
+                margin: 8px;
                 width: 10px;
                 object-fit: contain;
                 position: absolute;
@@ -46,7 +52,6 @@ ul#values-list {
         }
 
         button#select.color {
-            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
             border-radius: 50px;
 
         }
@@ -57,10 +62,12 @@ ul#values-list {
 
         h6 {
             flex: 1;
-            font-size: 1rem;
-            font-weight: 300;
             align-self: center;
             height: min-content;
+            font-weight: 500;
+            font-size: 14px;
+            color: $shade_1;
+            margin-left: 10px;
         }
 
         p {

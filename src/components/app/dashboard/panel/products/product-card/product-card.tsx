@@ -1,7 +1,8 @@
 import { FC } from "react";
+import rightSvg from "../../../../../../assets/img/bg-rightTop.svg";
+import leftSvg from "../../../../../../assets/img/bg-leftTop.svg";
 import Product from "../../../../../../assets/models/product";
-import rightSvg from "../../../../../assets/img/bg-rightTop.svg";
-import leftSvg from "../../../../../assets/img/bg-leftTop.svg";
+import "./product-card.scss"
 
 const ProductCard: FC<{
     product: Product;
@@ -25,17 +26,6 @@ const ProductCard: FC<{
                     justifyContent: "center",
                 }}
             >
-                <div
-                    style={{
-                        width: "100%",
-                        height: "100%",
-                        backgroundImage: "url(" + p.product.image_url + ")",
-                        filter: "blur(5px) brightness(1)",
-                        opacity: 0.5,
-                        position: "absolute",
-                        overflow: "hidden",
-                    }}
-                />
                 <div id="image">
                     <img alt="logo" src={p.product.image_url} id="logo" />
                     {p.product.compare_at ? (

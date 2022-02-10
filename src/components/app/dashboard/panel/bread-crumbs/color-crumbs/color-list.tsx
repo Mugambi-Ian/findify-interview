@@ -11,9 +11,9 @@ const ColorCrumbsList: FC = () => {
             {crumbs.color.map((bread_crumb, bc_index) => {
               return (
                 <>
-                  <p id="crumb-category" key={bc_index}>
+                  {/* <p id="crumb-category" key={bc_index}>
                     {bread_crumb.facet_name}:
-                  </p>
+                  </p> */}
                   {bread_crumb.values.map(
                     (crumb_value, cv_index) => {
                       return <ColorCrumb crumb={bread_crumb} value={crumb_value} key={cv_index} />

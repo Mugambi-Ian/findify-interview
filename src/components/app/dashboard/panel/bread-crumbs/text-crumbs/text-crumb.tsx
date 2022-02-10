@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { FacetValue } from "../../../../../assets/models/facet";
+import { FacetValue } from "../../../../../../assets/models/facet";
 import {
 	BreadCrumbText,
 	FilterContext,
-} from "../../../../../assets/widgets/types/types";
+} from "../../../../../../assets/widgets/types/types";
 
 const TextCrumb: FC<{
 	crumb: BreadCrumbText;
@@ -26,7 +26,7 @@ const TextCrumb: FC<{
 							}, 200)
 						}
 					>
-						<p id="text">{value}</p>
+						<p id="text">{value.value}</p>
 						<span>✖</span>
 					</button>
 				);

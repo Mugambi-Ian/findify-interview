@@ -7,24 +7,7 @@ $shade_4:#EFEFEF;
     min-width: 300px;
     display: flex;
     flex-direction: column;
-    height: 100vh;
-
-    header#title {
-        height: 60px;
-        display: flex;
-        background-color: #fff;
-        border-bottom: $shade_4 1px solid;
-        z-index: 2;
-
-        h1 {
-            margin-left: 15px;
-            color: $shade_1;
-            font-weight: 400;
-            font-size: 1.5rem;
-            flex: 1;
-            align-self: center;
-        }
-    }
+    height: 100%;
 
     header#filter-title {
         margin: 10px;
@@ -35,12 +18,13 @@ $shade_4:#EFEFEF;
 
         h2 {
             font-weight: 700;
-            color: $shade_2;
-            font-size: 16px;
+            color: $shade_1;
+            font-size: 14px;
             padding-top: 7px;
             padding-bottom: 7px;
             align-self: center;
             flex: 1;
+            text-transform: uppercase;
         }
     }
 
@@ -56,14 +40,7 @@ $shade_4:#EFEFEF;
     }
 
     @media (max-width:767px) {
-        header#title {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            width: 100vw;
-        }
-
+   
         ul#filter-list {
             height: max-content;
             max-height: unset;

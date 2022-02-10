@@ -11,4 +11,8 @@ export class Color {
       this.isHex = (code + "").charAt(0) === "#";
     }
   }
+
+  isWhite() {
+    return this.code === "#fff" || this.code === "#ffffff";
+  }
 }

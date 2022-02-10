@@ -4,6 +4,7 @@ import { FilterContext } from "../../../../../../../../assets/widgets/types/type
 import ColorFilter from "./filter-types/filter-color";
 import RangeFilter from "./filter-types/filter-range";
 import TextFilter from "./filter-types/filter-text";
+import "./filter-values.scss"
 
 const FacetValueList: FC<{
     facet: Facet;

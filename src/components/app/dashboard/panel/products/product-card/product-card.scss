@@ -9,7 +9,6 @@ ul#product-list {
         border-bottom-right-radius: 5px;
         margin: auto;
         height: 95%;
-        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         min-height: 450px;
         border-radius: 10px;
         opacity: 0;
@@ -31,7 +30,7 @@ ul#product-list {
             }
 
             img#logo {
-                margin-top: 15%;
+                position: absolute;
             }
 
             .left {
@@ -61,10 +60,12 @@ ul#product-list {
         }
 
         h1 {
-            font-weight: 300;
+            font-weight: 500;
             align-self: center;
-            margin: 10px;
             text-align: center;
+            margin: 10px;
+            text-transform: uppercase;
+            font-size: 12px;
         }
 
         div#compare {
@@ -76,10 +77,13 @@ ul#product-list {
                 margin: 0;
                 margin-left: 5px;
                 margin-right: 5px;
+                font-weight: 500;
+                color: #121212;
+                font-size: 14px;
             }
 
             h4:first-of-type {
-                color: $shade_2;
+                color: #939393;
                 text-decoration: line-through;
             }
         }

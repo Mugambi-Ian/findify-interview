@@ -9,7 +9,7 @@ import {
   fetchProducts,
 } from "../../assets/utils/sync";
 import "./app.scss";
-import { Context } from "../../assets/widgets/types/types";
+import { ApplicationContext } from "../../assets/widgets/types/types";
 
 const App: React.FC = () => {
   const [loading, updateLoadingStatus] = useState<{
@@ -69,18 +69,19 @@ const App: React.FC = () => {
   }, [syncColors, syncProducts, loading]);
 
   return (
-    <Context.Provider
+    <ApplicationContext.Provider
       value={{
         loaded: !(loading.color || loading.products),
         colorSchema,
+        facets,
+        products
       }}
     >
       <Dashboard
         colorSchema={colorSchema}
         facets={facets}
-        products={products}
       />
-    </Context.Provider>
+    </ApplicationContext.Provider>
   );
 };
 

@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { FacetValue } from "../../../../../../../../../assets/models/facet";
 import { FilterContext } from "../../../../../../../../../assets/widgets/types/types";
-import checkSvg from "../../../../assets/img/bg-check.svg";
-import boxSvg from "../../../../assets/img/bg-box.svg";
+import checkSvg from "../../../../../../../../../assets/img/bg-check.svg";
+import boxSvg from "../../../../../../../../../assets/img/bg-box.svg";
 
 const TextFilter: FC<{
   facetValue: FacetValue;
@@ -37,7 +37,7 @@ const TextFilter: FC<{
             )}
           </button>
           <h6>{value}</h6>
-          <p>{count}</p>
+          <p>({count})</p>
         </li>
       )}
     </FilterContext.Consumer>

@@ -10,9 +10,9 @@ const TextCrumbsList: FC = () => {
           {crumbs.text.map((bread_crumb, bc_index) => {
             return (
               <>
-                <p id="crumb-category" key={"text:" + bc_index}>
+                {/*  <p id="crumb-category" key={"text:" + bc_index}>
                   {bread_crumb.facet_name}:{" "}
-                </p>
+                </p> */}
                 <>
                   {bread_crumb.values.map(
                     (crumb_value, cv_index: number) => {

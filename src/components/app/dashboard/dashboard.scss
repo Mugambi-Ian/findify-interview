@@ -3,11 +3,33 @@ $shade_2:#939393;
 $shade_3:#CCCCCC;
 $shade_4:#EFEFEF;
 
+header#title {
+  margin-top: 20px;
+  display: flex;
+  background-color: #fff;
+  border-bottom: $shade_4 1px solid;
+  z-index: 2;
+  padding-bottom: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+
+  h1 {
+    margin-left: 10px;
+    color: $shade_1;
+    font-weight: 500;
+    font-size:24px;
+    flex: 1;
+    align-self: center;
+    text-transform: uppercase;
+  }
+}
+
 #dashboard {
   display: flex;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   background-color: #fff;
+  flex: 1;
 
   @media (max-width:767px) {
     section#panel {
@@ -39,12 +61,12 @@ $shade_4:#EFEFEF;
 }
 
 @keyframes shine {
-    0% {
-        background-color: $shade_3;
-    }
+  0% {
+    background-color: $shade_3;
+  }
 
-    100% {
-        background-color: $shade_4;
-    }
+  100% {
+    background-color: $shade_4;
+  }
 
 }
