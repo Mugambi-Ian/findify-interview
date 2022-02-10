@@ -1,8 +1,9 @@
 import { FC, useEffect, useState } from "react";
-import Facet from "../../../assets/models/facet";
+import { loadFacetUI } from "../../../assets/utils/load-filters";
+import { resetCrumbs } from "../../../assets/utils/reset-crumbs";
 import Dictionary from "../../../assets/utils/dictionary";
 import { Color } from "../../../assets/models/colors";
-import Product from "../../../assets/models/product";
+import Facet from "../../../assets/models/facet";
 import {
   BreadCrumb,
   FilterContext,
@@ -11,8 +12,6 @@ import {
 import NavBar from "./nav-bar/nav-bar";
 import Panel from "./panel/panel";
 import "./dashboard.scss";
-import { resetCrumbs } from "../../../assets/utils/reset-crumbs";
-import { loadFacetUI } from "../../../assets/utils/load-filters";
 
 
 const Dashboard: FC<{

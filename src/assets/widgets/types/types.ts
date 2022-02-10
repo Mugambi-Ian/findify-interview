@@ -1,3 +1,4 @@
+/* eslint-disable no-empty-pattern */
 import { createContext } from "react";
 import { Color } from "../../models/colors";
 import Facet, { FacetValue } from "../../models/facet";
